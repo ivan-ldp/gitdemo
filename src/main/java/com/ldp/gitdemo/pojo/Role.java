@@ -18,7 +18,7 @@ public class Role {
     private String roleName;//角色名称
     @Column(name = "role_code")
     private String roleCode;//角色标识
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinTable(name = "role_resouce",joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "res_id",referencedColumnName = "id")})
     private List<Resource> resources=new ArrayList<>();//每个角色所能操作的所有资源
@@ -53,5 +53,15 @@ public class Role {
 
     public void setResources(List<Resource> resources) {
         this.resources = resources;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                ", roleCode='" + roleCode + '\'' +
+                ", resources=" + resources +
+                '}';
     }
 }

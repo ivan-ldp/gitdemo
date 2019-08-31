@@ -53,4 +53,14 @@ public class Resource {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "id=" + id +
+                ", resName='" + resName + '\'' +
+                ", resCode='" + resCode + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
