@@ -1,0 +1,14 @@
+#配置数据库信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123
+    url: jdbc:mysql:///shiro_test?charsetEncoding=utf-8
+    type: org.apache.tomcat.jdbc.pool.DataSource
+  #jpb  开启自动正向工程支持，启动同步与数据库表结构更新
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
