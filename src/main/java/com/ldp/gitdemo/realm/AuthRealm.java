@@ -10,10 +10,12 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 自定义realm 进行认证与授权
  */
+@Component
 public class AuthRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
