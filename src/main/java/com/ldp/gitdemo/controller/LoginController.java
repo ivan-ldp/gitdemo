@@ -1,6 +1,7 @@
 package com.ldp.gitdemo.controller;
 
 import com.ldp.gitdemo.pojo.User;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -37,6 +38,39 @@ public class LoginController {
                 maps.put("massage",e.getMessage());
             }
         }
+        return maps;
+    }
+
+    /**
+     * 退出
+     * @return
+     */
+    @GetMapping("/logout")
+    public Map<String,Object> logout(){
+        SecurityUtils.getSubject().logout();
+        maps.put("status","200");
+        maps.put("massage","退出登陆");
+        return maps;
+    }
+
+    /**
+     * 未登录
+     * @return
+     */
+    @GetMapping("/unLogin")
+    public Map<String,Object> unLogin(){
+        maps.put("status","401");
+        maps.put("massage","没有登陆");
+        return maps;
+    }
+    /**
+     * 没有权限
+     * @return
+     */
+    @GetMapping("/unAuth")
+    public Map<String,Object> ybAth(){
+        maps.put("status","401");
+        maps.put("massage","没有权限");
         return maps;
     }
 }

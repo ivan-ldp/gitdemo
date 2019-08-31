@@ -1,11 +1,13 @@
 package com.ldp.gitdemo.config;
 
 import com.ldp.gitdemo.realm.AuthRealm;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,12 +29,14 @@ public class ShiroConfig {
 
     //设置过滤器shiroFilter
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SessionsSecurityManager securityManager){
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
         ShiroFilterFactoryBean factoryBean=new ShiroFilterFactoryBean();
         //设置会话管理器
         factoryBean.setSecurityManager(securityManager);
         //设置未登录时路径
         factoryBean.setLoginUrl("/unLogin");
+        //设定没有授权
+        factoryBean.setUnauthorizedUrl("/unAuth");
         //设置拦截器
         Map<String,String> fileMaps=new HashMap<>();
         fileMaps.put("/login","anon");
@@ -48,7 +52,9 @@ public class ShiroConfig {
     }
     //开启shiro注解
     @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
-        return new DefaultAdvisorAutoProxyCreator();
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor advisor=new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
 }
